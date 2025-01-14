@@ -25,6 +25,6 @@ jobs:
           context: .
           push: false
           platforms: linux/amd64,linux/arm64
-          tags: mcbenchmark/minecraft-builder-base:pr-validation
-          cache-from: type=registry,ref=mcbenchmark/minecraft-builder-base:latest
-          outputs: type=image,name=mcbenchmark/minecraft-builder-base:pr-validation,push=false
+          tags: registry.digitalocean.com/mcbench/gameservers:${{ github.head_ref }}-${{ steps.date.outputs.DATE }}
+          cache-from: type=registry,ref=registry.digitalocean.com/mcbench/gameservers:${{ github.head_ref }}-latest
+          outputs: type=image,name=registry.digitalocean.com/mcbench/gameservers:${{ github.head_ref }}-${{ steps.date.outputs.DATE }},push=false

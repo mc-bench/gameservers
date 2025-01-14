@@ -38,7 +38,7 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            registry.digitalocean.com/mcbench/gameservers:${{ steps.branch.outputs.BRANCH }}-${{ steps.date.outputs.DATE }}
-            registry.digitalocean.com/mcbench/gameservers:${{ steps.branch.outputs.BRANCH }}-latest
-          cache-from: type=registry,ref=registry.digitalocean.com/mcbench/gameservers:${{ steps.branch.outputs.BRANCH }}-latest
+            registry.digitalocean.com/mcbench/gameservers:${{ github.ref_name }}-${{ steps.date.outputs.DATE }}
+            registry.digitalocean.com/mcbench/gameservers:${{ github.ref_name }}-latest
+          cache-from: type=registry,ref=registry.digitalocean.com/mcbench/gameservers:${{ github.ref_name }}-latest
           cache-to: type=inline
