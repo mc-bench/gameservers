@@ -1,0 +1,30 @@
+name: Validate Docker Build
+
+on:
+  pull_request:
+    branches:
+      - minecraft-*  # or your default branch
+
+jobs:
+  validate-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: false
+          platforms: linux/amd64,linux/arm64
+          tags: mcbenchmark/minecraft-builder-base:pr-validation
+          cache-from: type=registry,ref=mcbenchmark/minecraft-builder-base:latest
+          outputs: type=image,name=mcbenchmark/minecraft-builder-base:pr-validation,push=false
