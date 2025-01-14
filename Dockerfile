@@ -113,15 +113,22 @@ ENV BUKKIT_YAML='settings:\n\
     - /\n\
   timeout-time: 3600000'
 
-
 # Pre-run the server to complete initialization, then stop it gracefully
-RUN /start & \
+RUN set -x && \
+    # Start the server in the background with unbuffered output
+    (stdbuf -oL -eL /start 2>&1 | tee /tmp/server.log | stdbuf -oL sed "s/^/[$(arch)] /") & \
+    SERVER_PID=$! && \
     # Wait for server to finish starting up (look for "Done" message with timing)
-    timeout 300 sh -c 'until grep -q "Done ([0-9.]*s)!" /data/logs/latest.log 2>/dev/null; do sleep 2; done' && \
+    timeout 600 sh -c 'until grep -q "Done ([0-9.]*s)!" /tmp/server.log; do sleep 2; done' && \
+    echo "[$(arch)] Server started successfully" && \
     # Send stop command via RCON
+    echo "[$(arch)] Sending op command" && \
     rcon-cli op builder && \
+    echo "[$(arch)] Sending stop command" && \
     rcon-cli stop && \
-    # Wait for process to fully terminate
-    wait
+    # Wait for the server process to fully terminate
+    wait $SERVER_PID && \
+    echo "[$(arch)] Server shutdown complete" && \
+    rm /tmp/server.log
 
 ENTRYPOINT [ "/start" ]
