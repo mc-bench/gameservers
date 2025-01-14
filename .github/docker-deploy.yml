@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - minecraft-*
+      - 'minecraft-**'
   workflow_dispatch:
 
 jobs:
