@@ -113,4 +113,15 @@ ENV BUKKIT_YAML='settings:\n\
     - /\n\
   timeout-time: 3600000'
 
+
+# Pre-run the server to complete initialization, then stop it gracefully
+RUN /start & \
+    # Wait for server to finish starting up (look for "Done" message with timing)
+    timeout 300 sh -c 'until grep -q "Done ([0-9.]*s)!" /data/logs/latest.log 2>/dev/null; do sleep 2; done' && \
+    # Send stop command via RCON
+    rcon-cli op builder && \
+    rcon-cli stop && \
+    # Wait for process to fully terminate
+    wait
+
 ENTRYPOINT [ "/start" ]
