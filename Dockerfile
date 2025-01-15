@@ -12,7 +12,7 @@ ENV TYPE=VANILLA VERSION=LATEST EULA=TRUE UID=1000 GID=1000
 ENV EULA="TRUE" \
     VERSION="1.21.1" \
     TYPE="PAPER" \
-    PAPER_CHANNEL="experimental" \
+    PAPER_BUILD="132" \
     DIFFICULTY="peaceful" \
     VIEW_DISTANCE="10" \
     MODE="creative" \
