@@ -1,0 +1,20 @@
+{
+    "file": "/data/spigot.yml",
+    "ops": [
+      {
+        "$put": {
+          "path": "$.commands",
+          "key": "spam-exclusions",
+          "value": [
+            "/setblock",
+            "/fill",
+            "/fillbiome",
+            "//pos",
+            "//copy",
+            "//schem"
+          ],
+          "value-type": "list of auto"
+        }
+      }
+    ]
+}
