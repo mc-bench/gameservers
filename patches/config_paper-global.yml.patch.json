@@ -1,0 +1,12 @@
+{
+    "file": "/data/config/paper-global.yml",
+    "ops": [
+      {
+        "$set": {
+          "path": "$.packet-limiter.all-packets.max-packet-rate",
+          "value": -1,
+          "value-type": "int"
+        }
+      }
+    ]
+  }

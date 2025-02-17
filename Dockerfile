@@ -113,6 +113,8 @@ ENV BUKKIT_YAML='settings:\n\
     - /\n\
   timeout-time: 3600000'
 
+COPY patches/ /data/patches
+ENV  PATCH_DEFINITIONS="/data/patches"
 # Pre-run the server to complete initialization, then stop it gracefully
 RUN set -x && \
     # Start the server in the background with unbuffered output
